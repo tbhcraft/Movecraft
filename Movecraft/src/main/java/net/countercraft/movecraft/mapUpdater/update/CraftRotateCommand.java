@@ -75,6 +75,11 @@ public class CraftRotateCommand extends UpdateCommand {
         if (craft instanceof SinkingCraft) {
             passthroughBlocks.addAll(Tags.FLUID);
             passthroughBlocks.addAll(Tag.LEAVES.getValues());
+            passthroughBlocks.add(Material.KELP);
+            passthroughBlocks.add(Material.KELP_PLANT);
+            passthroughBlocks.add(Material.SEAGRASS);
+            passthroughBlocks.add(Material.SEA_PICKLE);
+            passthroughBlocks.add(Material.SAND);
             passthroughBlocks.addAll(Tags.SINKING_PASSTHROUGH);
         }
         if (!passthroughBlocks.isEmpty()) {
