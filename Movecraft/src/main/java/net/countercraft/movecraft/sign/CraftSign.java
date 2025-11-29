@@ -102,6 +102,7 @@ public final class CraftSign implements Listener {
                                 new CruiseOnPilotCraft(type, world, p));
                     }
                     else {
+                        //Bukkit.getLogger().info("test: " + parents);                        
                         if (parents.size() > 0)
                             return new Pair<>(Result.failWithMessage(I18nSupport.getInternationalisedString(
                                     "Detection - Failed - Already commanding a craft")), null);
