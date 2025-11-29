@@ -12,8 +12,6 @@ dependencies {
     runtimeOnly(project(":movecraft-v1_21_1", "reobf"))
     runtimeOnly(project(":movecraft-v1_21_4", "reobf"))
     runtimeOnly(project(":movecraft-v1_21_5", "reobf"))
-    runtimeOnly(project(":movecraft-v1_21_8", "reobf"))
-    runtimeOnly(project(":movecraft-v1_21_10", "reobf"))
     implementation(project(":movecraft-api"))
     compileOnly("org.yaml:snakeyaml:2.0")
 }
@@ -29,8 +27,6 @@ tasks.shadowJar {
         include(project(":movecraft-v1_21_1"))
         include(project(":movecraft-v1_21_4"))
         include(project(":movecraft-v1_21_5"))
-        include(project(":movecraft-v1_21_8"))
-        include(project(":movecraft-v1_21_10"))
     }
 }
 
@@ -74,7 +70,7 @@ hangarPublish {
         platforms {
             register(io.papermc.hangarpublishplugin.model.Platforms.PAPER) {
                 jar.set(tasks.shadowJar.flatMap { it.archiveFile })
-                platformVersions.set(listOf("1.20.6", "1.21.1", "1.21.4", "1.21.5", "1.21.8", "1.21.10"))
+                platformVersions.set(listOf("1.20.6", "1.21.1", "1.21.4", "1.21.5"))
             }
         }
     }
