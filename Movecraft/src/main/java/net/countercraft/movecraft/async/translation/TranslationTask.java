@@ -222,20 +222,37 @@ public class TranslationTask extends AsyncTask {
                 newFluidList.add(fluidLoc.translate(dx, dy, dz));
             }
         }
-
-        if (craft.getType().getMaterialSetProperty(CraftType.FORBIDDEN_HOVER_OVER_BLOCKS).size() > 0) {
-            MovecraftLocation test = new MovecraftLocation(newHitBox.getMidPoint().getX(), newHitBox.getMinY(),
-                    newHitBox.getMidPoint().getZ());
-            test = test.translate(0, -1, 0);
-            // If we are out of bounds, that is technically air, but then we would have an infinite loop, so stay in Y bounds
-            while (test.toBukkit(world).getBlock().getType().isAir() && world.getMinHeight() >= test.getY()) {
+        if (craft.getType().getBoolProperty(CraftType.INVERT_HOVER_OVER_BLOCKS)) {
+            if (craft.getType().getMaterialSetProperty(CraftType.ALLOW_HOVER_OVER_BLOCKS).size() > 0) {
+                MovecraftLocation test = new MovecraftLocation(newHitBox.getMidPoint().getX(), newHitBox.getMinY(),
+                        newHitBox.getMidPoint().getZ());
                 test = test.translate(0, -1, 0);
+                // If we are out of bounds, that is technically air, but then we would have an infinite loop, so stay in Y bounds
+                while (test.toBukkit(world).getBlock().getType().isAir() && world.getMinHeight() >= test.getY()) {
+                    test = test.translate(0, -1, 0);
+                }
+                Material testType = test.toBukkit(world).getBlock().getType();
+                if (!craft.getType().getMaterialSetProperty(CraftType.ALLOW_HOVER_OVER_BLOCKS).contains(testType)) {
+                    fail(String.format(I18nSupport.getInternationalisedString("Translation - Failed Craft over block"),
+                            testType.name().toLowerCase().replace("_", " ")));
+                    return;
+                }
             }
-            Material testType = test.toBukkit(world).getBlock().getType();
-            if (craft.getType().getMaterialSetProperty(CraftType.FORBIDDEN_HOVER_OVER_BLOCKS).contains(testType)) {
-                fail(String.format(I18nSupport.getInternationalisedString("Translation - Failed Craft over block"),
-                        testType.name().toLowerCase().replace("_", " ")));
-                return;
+        } else {
+            if (craft.getType().getMaterialSetProperty(CraftType.FORBIDDEN_HOVER_OVER_BLOCKS).size() > 0) {
+                MovecraftLocation test = new MovecraftLocation(newHitBox.getMidPoint().getX(), newHitBox.getMinY(),
+                        newHitBox.getMidPoint().getZ());
+                test = test.translate(0, -1, 0);
+                // If we are out of bounds, that is technically air, but then we would have an infinite loop, so stay in Y bounds
+                while (test.toBukkit(world).getBlock().getType().isAir() && world.getMinHeight() >= test.getY()) {
+                    test = test.translate(0, -1, 0);
+                }
+                Material testType = test.toBukkit(world).getBlock().getType();
+                if (craft.getType().getMaterialSetProperty(CraftType.FORBIDDEN_HOVER_OVER_BLOCKS).contains(testType)) {
+                    fail(String.format(I18nSupport.getInternationalisedString("Translation - Failed Craft over block"),
+                            testType.name().toLowerCase().replace("_", " ")));
+                    return;
+                }
             }
         }
         //call event
