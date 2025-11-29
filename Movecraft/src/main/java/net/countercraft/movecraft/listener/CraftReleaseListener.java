@@ -1,5 +1,6 @@
 package net.countercraft.movecraft.listener;
 
+import net.countercraft.movecraft.Movecraft;
 import net.countercraft.movecraft.MovecraftLocation;
 import net.countercraft.movecraft.craft.Craft;
 import net.countercraft.movecraft.events.CraftReleaseEvent;
@@ -15,6 +16,8 @@ public class CraftReleaseListener implements Listener {
     public void onDisassembly(@NotNull CraftReleaseEvent event) {
         // Walk through all signs and set a UUID in there
         final Craft craft = event.getCraft();
+
+        Movecraft.getInstance().getDirectControlManager().removeControlledCraft(craft);
 
         // Now, find all signs on the craft...
         for (MovecraftLocation mLoc : craft.getHitBox()) {

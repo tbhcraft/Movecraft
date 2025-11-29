@@ -100,7 +100,7 @@ public class DirectControlManager extends BukkitRunnable implements Listener {
 
     public void addControlledCraft(Craft c, Player p) { controlledCrafts.put(c, p); }
 
-    public void removeControlledCraft(Craft c, Player p) { controlledCrafts.remove(c, p); }
+    public void removeControlledCraft(Craft c) { controlledCrafts.remove(c); }
 
     public void addOrSetCooldown(Craft c, Long endTime) { cooldowns.put(c, endTime); }
 }
