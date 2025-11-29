@@ -162,6 +162,9 @@ final public class CraftType {
     public static final NamespacedKey HARVEST_BLOCKS = buildKey("harvest_blocks");
     public static final NamespacedKey HARVESTER_BLADE_BLOCKS = buildKey("harvester_blade_blocks");
     public static final NamespacedKey PASSTHROUGH_BLOCKS = buildKey("passthrough_blocks");
+
+    public static final NamespacedKey INVERT_HOVER_OVER_BLOCKS = buildKey("invert_hover_over_blocks");
+    public static final NamespacedKey ALLOW_HOVER_OVER_BLOCKS = buildKey("allow_hover_over_blocks");    
     public static final NamespacedKey FORBIDDEN_HOVER_OVER_BLOCKS = buildKey("forbidden_hover_over_blocks");
     public static final NamespacedKey ALLOW_VERTICAL_TAKEOFF_AND_LANDING = buildKey(
             "allow_vertical_takeoff_and_landing");
@@ -498,13 +501,16 @@ final public class CraftType {
         registerProperty(new BooleanProperty("moveEntities", MOVE_ENTITIES, type -> true));
         registerProperty(new BooleanProperty("onlyMovePlayers", ONLY_MOVE_PLAYERS, type -> true));
         registerProperty(new BooleanProperty("useGravity", USE_GRAVITY, type -> false));
-        registerProperty(new BooleanProperty("useIncline", USE_INCLINE, type -> false));
+        registerProperty(new BooleanProperty("useIncline", USE_INCLINE, type -> false));        
         registerProperty(new IntegerProperty("hoverLimit", HOVER_LIMIT, type -> 0));
         registerProperty(new MaterialSetProperty("harvestBlocks", HARVEST_BLOCKS,
                 type -> EnumSet.noneOf(Material.class)));
         registerProperty(new MaterialSetProperty("harvesterBladeBlocks", HARVESTER_BLADE_BLOCKS,
                 type -> EnumSet.noneOf(Material.class)));
         registerProperty(new MaterialSetProperty("passthroughBlocks", PASSTHROUGH_BLOCKS,
+                type -> EnumSet.noneOf(Material.class)));
+        registerProperty(new BooleanProperty("invertHoverOverBlocks", INVERT_HOVER_OVER_BLOCKS, type -> true));
+        registerProperty(new MaterialSetProperty("allowHoverOverBlocks", ALLOW_HOVER_OVER_BLOCKS,
                 type -> EnumSet.noneOf(Material.class)));
         registerProperty(new MaterialSetProperty("forbiddenHoverOverBlocks", FORBIDDEN_HOVER_OVER_BLOCKS,
                 type -> EnumSet.noneOf(Material.class)));
