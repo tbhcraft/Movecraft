@@ -23,10 +23,7 @@ import net.countercraft.movecraft.MovecraftRotation;
 import net.countercraft.movecraft.TrackedLocation;
 import net.countercraft.movecraft.async.AsyncTask;
 import net.countercraft.movecraft.config.Settings;
-import net.countercraft.movecraft.craft.Craft;
-import net.countercraft.movecraft.craft.CraftManager;
-import net.countercraft.movecraft.craft.SinkingCraft;
-import net.countercraft.movecraft.craft.SubCraft;
+import net.countercraft.movecraft.craft.*;
 import net.countercraft.movecraft.craft.type.CraftType;
 import net.countercraft.movecraft.events.CraftRotateEvent;
 import net.countercraft.movecraft.events.CraftTeleportEntityEvent;
@@ -45,6 +42,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 
 import java.util.HashSet;
 import java.util.List;
@@ -274,6 +272,7 @@ public class RotationTask extends AsyncTask {
 
             Location adjustedPLoc = entity.getLocation().subtract(tOP);
 
+
             double[] rotatedCoords = MathUtils.rotateVecNoRound(rotation,
                     adjustedPLoc.getX(), adjustedPLoc.getZ());
             float newYaw = rotation == MovecraftRotation.CLOCKWISE ? 90F : -90F;
@@ -282,7 +281,6 @@ public class RotationTask extends AsyncTask {
             Bukkit.getServer().getPluginManager().callEvent(e);
             if (e.isCancelled())
                 continue;
-
             EntityUpdateCommand eUp = new EntityUpdateCommand(entity,
                     rotatedCoords[0] + tOP.getX() - entity.getLocation().getX(),
                     0,

@@ -11,6 +11,10 @@ public enum CruiseDirection {
     WEST,
     UP,
     DOWN,
+    NORTHEAST,
+    SOUTHEAST,
+    SOUTHWEST,
+    NORTHWEST,
     NONE;
 
     @Contract(pure = true)
@@ -32,6 +36,10 @@ public enum CruiseDirection {
             case SOUTH -> NORTH;
             case EAST -> WEST;
             case WEST -> EAST;
+            case NORTHEAST -> SOUTHWEST;
+            case SOUTHWEST -> NORTHEAST;
+            case SOUTHEAST -> NORTHWEST;
+            case NORTHWEST -> SOUTHEAST;
             default -> this;
         };
     }
@@ -43,6 +51,10 @@ public enum CruiseDirection {
                 case SOUTH -> WEST;
                 case EAST -> SOUTH;
                 case WEST -> NORTH;
+                case NORTHEAST -> SOUTHEAST;
+                case SOUTHEAST -> SOUTHWEST;
+                case SOUTHWEST -> NORTHWEST;
+                case NORTHWEST -> NORTHEAST;
                 default -> this;
             };
             case ANTICLOCKWISE -> getRotated2D(MovecraftRotation.CLOCKWISE).getOpposite2D();

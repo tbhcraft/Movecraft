@@ -6,11 +6,7 @@ import net.countercraft.movecraft.MovecraftLocation;
 import net.countercraft.movecraft.TrackedLocation;
 import net.countercraft.movecraft.async.AsyncTask;
 import net.countercraft.movecraft.config.Settings;
-import net.countercraft.movecraft.craft.ChunkManager;
-import net.countercraft.movecraft.craft.Craft;
-import net.countercraft.movecraft.craft.CraftManager;
-import net.countercraft.movecraft.craft.SinkingCraft;
-import net.countercraft.movecraft.craft.SubCraft;
+import net.countercraft.movecraft.craft.*;
 import net.countercraft.movecraft.craft.type.CraftType;
 import net.countercraft.movecraft.events.CraftCollisionEvent;
 import net.countercraft.movecraft.events.CraftCollisionExplosionEvent;
@@ -45,6 +41,7 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -372,8 +369,30 @@ public class TranslationTask extends AsyncTask {
                 if (e.isCancelled())
                     continue;
 
-                EntityUpdateCommand eUp = new EntityUpdateCommand(entity, dx, dy, dz, 0, 0,
+                Movecraft.getInstance().getDirectControlManager().addOrSetCooldown(craft, System.currentTimeMillis() + 50);
+                PlayerCraft pCraft = CraftManager.getInstance().getCraftByPlayer((Player)entity);
+                Location playerTranslationToLock = new Location(world, 0, 0, 0);
+                if(pCraft.getPilotLocked()==true && entity== CraftManager.getInstance().getPlayerFromCraft(craft)) {
+
+                    Location pilotLockLocation = new Location(world, pCraft.getPilotLockedX(), pCraft.getPilotLockedY(), pCraft.getPilotLockedZ());
+
+                    playerTranslationToLock = new Location(
+                            world,
+                            pilotLockLocation.getX() - entity.getLocation().getX(),
+                            pilotLockLocation.getY() - entity.getLocation().getY(),
+                            pilotLockLocation.getZ() - entity.getLocation().getZ()
+                    );
+
+                    pilotLockLocation.add(dx, dy, dz);
+
+                    pCraft.setPilotLockedX(pilotLockLocation.getX());
+                    pCraft.setPilotLockedY(pilotLockLocation.getY());
+                    pCraft.setPilotLockedZ(pilotLockLocation.getZ());
+                }
+
+                EntityUpdateCommand eUp = new EntityUpdateCommand(entity, dx + playerTranslationToLock.getX(), dy + playerTranslationToLock.getY(), dz + playerTranslationToLock.getZ(), 0, 0,
                         world, sound, volume);
+
                 updates.add(eUp);
                 continue;
             }

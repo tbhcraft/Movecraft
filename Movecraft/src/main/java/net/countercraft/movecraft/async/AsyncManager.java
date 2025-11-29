@@ -270,6 +270,31 @@ public class AsyncManager extends BukkitRunnable {
                 if (bankRight)
                     dx = (1 + cruiseSkipBlocks) >> 1;
             }
+
+            if(craft.getCruiseDirection() == CruiseDirection.NORTHEAST)
+            {
+                dz = -1 - cruiseSkipBlocks;
+                dx = (1 + cruiseSkipBlocks) >> 1;
+            }
+
+            if(craft.getCruiseDirection() == CruiseDirection.SOUTHEAST)
+            {
+                dz = 1 + cruiseSkipBlocks;
+                dx = (1 + cruiseSkipBlocks) >> 1;
+            }
+
+            if(craft.getCruiseDirection() == CruiseDirection.SOUTHWEST)
+            {
+                dz = 1 + cruiseSkipBlocks;
+                dx = (-1 - cruiseSkipBlocks) >> 1;
+            }
+
+            if(craft.getCruiseDirection() == CruiseDirection.NORTHWEST)
+            {
+                dz = -1 - cruiseSkipBlocks;
+                dx = (-1 - cruiseSkipBlocks) >> 1;
+            }
+
             if (craft.getType().getBoolProperty(CraftType.CRUISE_ON_PILOT)) {
                 dy = craft.getType().getIntProperty(CraftType.CRUISE_ON_PILOT_VERT_MOVE);
             }
