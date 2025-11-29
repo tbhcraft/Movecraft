@@ -501,7 +501,7 @@ final public class CraftType {
         registerProperty(new BooleanProperty("moveEntities", MOVE_ENTITIES, type -> true));
         registerProperty(new BooleanProperty("onlyMovePlayers", ONLY_MOVE_PLAYERS, type -> true));
         registerProperty(new BooleanProperty("useGravity", USE_GRAVITY, type -> false));
-        registerProperty(new BooleanProperty("useIncline", USE_INCLINE, type -> false));        
+        registerProperty(new BooleanProperty("useIncline", USE_INCLINE, type -> false));
         registerProperty(new IntegerProperty("hoverLimit", HOVER_LIMIT, type -> 0));
         registerProperty(new MaterialSetProperty("harvestBlocks", HARVEST_BLOCKS,
                 type -> EnumSet.noneOf(Material.class)));
