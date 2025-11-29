@@ -42,6 +42,7 @@ public class HoverValidator implements TetradicPredicate<MovecraftLocation, Move
                     return Result.failWithMessage(String.format(I18nSupport.getInternationalisedString("Translation - Failed Craft over block"), testType.name().toLowerCase().replace("_", " ")));
                 }
             }
+        }
         return Result.succeed();
     }
 }
