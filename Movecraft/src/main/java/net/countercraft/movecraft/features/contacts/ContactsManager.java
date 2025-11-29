@@ -11,6 +11,7 @@ import net.countercraft.movecraft.exception.EmptyHitBoxException;
 import net.countercraft.movecraft.features.contacts.events.LostContactEvent;
 import net.countercraft.movecraft.features.contacts.events.NewContactEvent;
 import net.countercraft.movecraft.localisation.I18nSupport;
+import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -264,7 +265,7 @@ public class ContactsManager extends BukkitRunnable implements Listener {
         Object object = base.getType().getObjectProperty(CraftType.COLLISION_SOUND);
         if (!(object instanceof Sound sound))
             throw new IllegalStateException("COLLISION_SOUND must be of type Sound");
-        base.getAudience().playSound(sound);
+        base.getAudience().playSound(Sound.sound(Key.key("block.note_block.pling"), Sound.Source.NEUTRAL, 2.0f,1.0f));
 
         if (base instanceof PlayerCraft) {
             Map<Craft, Long> recentContacts = base.getDataTag(RECENT_CONTACTS);
