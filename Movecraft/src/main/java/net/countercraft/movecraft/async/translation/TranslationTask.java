@@ -386,30 +386,8 @@ public class TranslationTask extends AsyncTask {
                 Bukkit.getServer().getPluginManager().callEvent(e);
                 if (e.isCancelled())
                     continue;
-
-                Movecraft.getInstance().getDirectControlManager().addOrSetCooldown(craft, System.currentTimeMillis() + 50);
-                PlayerCraft pCraft = CraftManager.getInstance().getCraftByPlayer((Player) entity);
-                Location playerTranslationToLock = new Location(world, 0, 0, 0);
-                if (pCraft != null) {
-                    if (pCraft.getPilotLocked() && entity == CraftManager.getInstance().getPlayerFromCraft(craft)) {
-
-                        Location pilotLockLocation = new Location(world, pCraft.getPilotLockedX(), pCraft.getPilotLockedY(), pCraft.getPilotLockedZ());
-
-                        playerTranslationToLock = new Location(
-                                world,
-                                pilotLockLocation.getX() - entity.getLocation().getX(),
-                                pilotLockLocation.getY() - entity.getLocation().getY(),
-                                pilotLockLocation.getZ() - entity.getLocation().getZ()
-                        );
-
-                        pilotLockLocation.add(dx, dy, dz);
-
-                        pCraft.setPilotLockedX(pilotLockLocation.getX());
-                        pCraft.setPilotLockedY(pilotLockLocation.getY());
-                        pCraft.setPilotLockedZ(pilotLockLocation.getZ());
-                    }
-                }
-                EntityUpdateCommand eUp = new EntityUpdateCommand(entity, dx + playerTranslationToLock.getX(), dy + playerTranslationToLock.getY(), dz + playerTranslationToLock.getZ(), 0, 0,
+                    
+                EntityUpdateCommand eUp = new EntityUpdateCommand(entity, dx, dy, dz, 0, 0,
                         world, sound, volume);
 
                 updates.add(eUp);

@@ -17,7 +17,7 @@ public class CraftReleaseListener implements Listener {
         // Walk through all signs and set a UUID in there
         final Craft craft = event.getCraft();
 
-        Movecraft.getInstance().getDirectControlManager().removeControlledCraft(craft);
+        //Movecraft.getInstance().getDirectControlManager().removeControlledCraft(craft);
 
         // Now, find all signs on the craft...
         for (MovecraftLocation mLoc : craft.getHitBox()) {

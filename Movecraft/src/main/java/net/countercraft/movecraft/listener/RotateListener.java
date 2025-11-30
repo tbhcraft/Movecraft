@@ -1,3 +1,4 @@
+/*
 package net.countercraft.movecraft.listener;
 
 import net.countercraft.movecraft.Movecraft;
@@ -38,3 +39,4 @@ public final class RotateListener implements Listener {
         pCraft.setPilotLockedZ(rotatedPilotLoc[1] + tOP.getZ());
     }
 }
+*/

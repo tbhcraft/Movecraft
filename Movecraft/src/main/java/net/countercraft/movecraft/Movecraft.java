@@ -19,7 +19,7 @@ package net.countercraft.movecraft;
 
 import io.papermc.paper.datapack.Datapack;
 import net.countercraft.movecraft.async.AsyncManager;
-import net.countercraft.movecraft.async.DirectControlManager;
+//import net.countercraft.movecraft.async.DirectControlManager;
 import net.countercraft.movecraft.commands.*;
 import net.countercraft.movecraft.config.Settings;
 import net.countercraft.movecraft.craft.ChunkManager;
@@ -59,7 +59,7 @@ public class Movecraft extends JavaPlugin {
     private WorldHandler worldHandler;
     private SmoothTeleport smoothTeleport;
     private AsyncManager asyncManager;
-    private DirectControlManager directControlManager;
+    //private DirectControlManager directControlManager;
     private WreckManager wreckManager;
 
     public static synchronized Movecraft getInstance() {
@@ -192,8 +192,8 @@ public class Movecraft extends JavaPlugin {
         asyncManager = new AsyncManager();
         asyncManager.runTaskTimer(this, 0, 1);
 
-        directControlManager = new DirectControlManager();
-        directControlManager.runTaskTimer(this, 0, 1);
+        //directControlManager = new DirectControlManager();
+        //directControlManager.runTaskTimer(this, 0, 1);
 
         MapUpdateManager.getInstance().runTaskTimer(this, 0, 1);
 
@@ -203,7 +203,7 @@ public class Movecraft extends JavaPlugin {
         wreckManager = new WreckManager(WorldManager.INSTANCE);
 
         getServer().getPluginManager().registerEvents(new InteractListener(), this);
-        getServer().getPluginManager().registerEvents(new RotateListener(), this);
+        //getServer().getPluginManager().registerEvents(new RotateListener(), this);
 
         getCommand("movecraft").setExecutor(new MovecraftCommand());
         getCommand("release").setExecutor(new ReleaseCommand());
@@ -344,9 +344,9 @@ public class Movecraft extends JavaPlugin {
         return asyncManager;
     }
 
-    public DirectControlManager getDirectControlManager() {
-        return directControlManager;
-    }
+    //public DirectControlManager getDirectControlManager() {
+    //    return directControlManager;
+    //}
 
     public @NotNull WreckManager getWreckManager(){
         return wreckManager;
