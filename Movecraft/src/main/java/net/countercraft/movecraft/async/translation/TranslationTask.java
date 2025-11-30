@@ -222,6 +222,7 @@ public class TranslationTask extends AsyncTask {
                 newFluidList.add(fluidLoc.translate(dx, dy, dz));
             }
         }
+
         if (craft.getType().getBoolProperty(CraftType.INVERT_HOVER_OVER_BLOCKS)) {
             if (craft.getType().getMaterialSetProperty(CraftType.ALLOW_HOVER_OVER_BLOCKS).size() > 0) {
                 MovecraftLocation test = new MovecraftLocation(newHitBox.getMidPoint().getX(), newHitBox.getMinY(),
@@ -302,7 +303,7 @@ public class TranslationTask extends AsyncTask {
             }
             for (MovecraftLocation location : collisionBox) {
                 if (parentCraft != null && parentCraft.getHitBox().contains(location)
-                   && !parentCraft.getType().getBoolProperty(CraftType.ALLOW_INTERNAL_COLLISION_EXPLOSION)) {
+                        && !parentCraft.getType().getBoolProperty(CraftType.ALLOW_INTERNAL_COLLISION_EXPLOSION)) {
                     //Prevents CollisionExplosion crafts from exploding inside the craft.
                     break;
                 }
@@ -362,7 +363,7 @@ public class TranslationTask extends AsyncTask {
     private void preventsTorpedoRocketsPilots() {
         if (!craft.getType().getBoolProperty(CraftType.MOVE_ENTITIES) ||
                 (craft instanceof SinkingCraft
-                && craft.getType().getBoolProperty(CraftType.ONLY_MOVE_PLAYERS))) {
+                        && craft.getType().getBoolProperty(CraftType.ONLY_MOVE_PLAYERS))) {
             // add releaseTask without playermove to manager
             if (!craft.getType().getBoolProperty(CraftType.CRUISE_ON_PILOT) && !(craft instanceof SinkingCraft))
                 // not necessary to release cruiseonpilot crafts, because they will already be released
@@ -387,31 +388,33 @@ public class TranslationTask extends AsyncTask {
                     continue;
 
                 Movecraft.getInstance().getDirectControlManager().addOrSetCooldown(craft, System.currentTimeMillis() + 50);
-                PlayerCraft pCraft = CraftManager.getInstance().getCraftByPlayer((Player)entity);
+                PlayerCraft pCraft = CraftManager.getInstance().getCraftByPlayer((Player) entity);
                 Location playerTranslationToLock = new Location(world, 0, 0, 0);
-                if(pCraft.getPilotLocked()==true && entity== CraftManager.getInstance().getPlayerFromCraft(craft)) {
+                if (pCraft != null) {
+                    if (pCraft.getPilotLocked() && entity == CraftManager.getInstance().getPlayerFromCraft(craft)) {
 
-                    Location pilotLockLocation = new Location(world, pCraft.getPilotLockedX(), pCraft.getPilotLockedY(), pCraft.getPilotLockedZ());
+                        Location pilotLockLocation = new Location(world, pCraft.getPilotLockedX(), pCraft.getPilotLockedY(), pCraft.getPilotLockedZ());
 
-                    playerTranslationToLock = new Location(
-                            world,
-                            pilotLockLocation.getX() - entity.getLocation().getX(),
-                            pilotLockLocation.getY() - entity.getLocation().getY(),
-                            pilotLockLocation.getZ() - entity.getLocation().getZ()
-                    );
+                        playerTranslationToLock = new Location(
+                                world,
+                                pilotLockLocation.getX() - entity.getLocation().getX(),
+                                pilotLockLocation.getY() - entity.getLocation().getY(),
+                                pilotLockLocation.getZ() - entity.getLocation().getZ()
+                        );
 
-                    pilotLockLocation.add(dx, dy, dz);
+                        pilotLockLocation.add(dx, dy, dz);
 
-                    pCraft.setPilotLockedX(pilotLockLocation.getX());
-                    pCraft.setPilotLockedY(pilotLockLocation.getY());
-                    pCraft.setPilotLockedZ(pilotLockLocation.getZ());
+                        pCraft.setPilotLockedX(pilotLockLocation.getX());
+                        pCraft.setPilotLockedY(pilotLockLocation.getY());
+                        pCraft.setPilotLockedZ(pilotLockLocation.getZ());
+                    }
                 }
-
                 EntityUpdateCommand eUp = new EntityUpdateCommand(entity, dx + playerTranslationToLock.getX(), dy + playerTranslationToLock.getY(), dz + playerTranslationToLock.getZ(), 0, 0,
                         world, sound, volume);
 
                 updates.add(eUp);
                 continue;
+
             }
 
             if (craft.getType().getBoolProperty(CraftType.ONLY_MOVE_PLAYERS)
