@@ -16,14 +16,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DirectControlManager extends BukkitRunnable implements Listener {
-    private Map<Craft, Player> controlledCrafts = new HashMap<>();
-    private Map<Craft, Long> cooldowns = new HashMap<>();
-    private Map<Player, Long> sneakTimes = new HashMap<>();
+    private final Map<Craft, Player> controlledCrafts = new HashMap<>();
+    private final Map<Craft, Long> cooldowns = new HashMap<>();
+    private final Map<Player, Long> sneakTimes = new HashMap<>();
     @Override
     public void run() {
         if (controlledCrafts.isEmpty()) return;
+        Bukkit.getLogger().info(controlledCrafts.toString());
         for (Map.Entry<Craft, Player> controlledCraft : controlledCrafts.entrySet())
         {
+            if(controlledCraft.getKey() == null || controlledCraft.getValue() == null)
+                controlledCrafts.remove(controlledCraft.getKey());
             Player player = controlledCraft.getValue();
             PlayerCraft pCraft = (PlayerCraft)controlledCraft.getKey();
 
