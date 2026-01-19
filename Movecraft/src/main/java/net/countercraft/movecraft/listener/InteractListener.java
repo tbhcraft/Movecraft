@@ -61,8 +61,8 @@ public final class InteractListener implements Listener {
                         if (e.getPlayer().hasPermission("movecraft." + craft.getType().getStringProperty(CraftType.NAME) + ".move")
                                 && craft.getType().getBoolProperty(CraftType.CAN_DIRECT_CONTROL)) {
                             craft.setPilotLocked(true);
-                            Movecraft.getInstance().getDirectControlManager().addControlledCraft(craft, e.getPlayer());
-                            Movecraft.getInstance().getDirectControlManager().addOrSetCooldown(craft, System.currentTimeMillis() + 500);
+                            //Movecraft.getInstance().getDirectControlManager().addControlledCraft(craft, e.getPlayer());
+                            //Movecraft.getInstance().getDirectControlManager().addOrSetCooldown(craft, System.currentTimeMillis() + 500);
 
                             /*
                             craft.setPilotLockedX(craft.getHitBox().getMidPoint().getX() - e.getPlayer().getLocation().getBlockX() + 0.5);
@@ -70,9 +70,9 @@ public final class InteractListener implements Listener {
                             craft.setPilotLockedZ(craft.getHitBox().getMidPoint().getZ() - e.getPlayer().getLocation().getBlockZ() + 0.5);
                              */
 
-                            craft.setPilotLockedX(e.getPlayer().getLocation().getBlockX() + 0.5);
-                            craft.setPilotLockedY(e.getPlayer().getLocation().getY());
-                            craft.setPilotLockedZ(e.getPlayer().getLocation().getBlockZ() + 0.5);
+                            //craft.setPilotLockedX(e.getPlayer().getLocation().getBlockX() + 0.5);
+                            //craft.setPilotLockedY(e.getPlayer().getLocation().getY());
+                            //craft.setPilotLockedZ(e.getPlayer().getLocation().getBlockZ() + 0.5);
                             e.getPlayer().sendMessage(String
                                     .format(I18nSupport.getInternationalisedString("Entering Direct Control Mode")));
                             e.setCancelled(true);
@@ -83,7 +83,7 @@ public final class InteractListener implements Listener {
                         }
                     } else {
                         craft.setPilotLocked(false);
-                        Movecraft.getInstance().getDirectControlManager().removeControlledCraft(craft);
+                        //Movecraft.getInstance().getDirectControlManager().removeControlledCraft(craft);
                         e.getPlayer().sendMessage(
                                 String.format(I18nSupport.getInternationalisedString("Leaving Direct Control Mode")));
                         e.setCancelled(true);
